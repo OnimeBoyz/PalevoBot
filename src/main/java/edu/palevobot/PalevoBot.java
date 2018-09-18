@@ -29,7 +29,7 @@ public class PalevoBot extends TelegramLongPollingCommandBot {
 
     @Override
     public void processNonCommandUpdate(Update update) {
-
+        update.getMessage().getDocument();
     }
 
     @Override

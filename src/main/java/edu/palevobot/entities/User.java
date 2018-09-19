@@ -1,8 +1,10 @@
 package edu.palevobot.entities;
 
+import edu.palevobot.dao.UserDaoFactory;
 import jdk.jshell.spi.ExecutionControl;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class User extends Base {
@@ -40,5 +42,14 @@ public class User extends Base {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public static User getById(int id) throws SQLException {
+        for (User user : User.users) {
+            if(user.getId() == id)
+                return user;
+        }
+
+        return new UserDaoFactory().getDao("jdbc").getById(id);
     }
 }

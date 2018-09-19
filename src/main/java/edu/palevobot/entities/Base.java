@@ -10,11 +10,15 @@ public class Base {
         this.dateOfCreation = dateOfCreation;
     }
 
-    protected int getId() {
+    public Base(int id){
+        this.id = id;
+    }
+
+    public int getId() {
         return id;
     }
 
-    protected Date getDateOfCreation() {
+    public Date getDateOfCreation() {
         return dateOfCreation;
     }
 }

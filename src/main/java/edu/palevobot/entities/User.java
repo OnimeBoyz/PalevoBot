@@ -11,14 +11,19 @@ public class User extends Base {
 
     public static ArrayList<User> users = new ArrayList<>();
 
-    public User(int id, Date dateOfCreation, String username) throws ExecutionControl.NotImplementedException {
+    public User(int id, Date dateOfCreation, String username) {
         super(id, dateOfCreation);
         this.username = username;
         this.rating = calculateRating();
 
         users.add(this);
-        //Добавить челикса в бд
-        throw new ExecutionControl.NotImplementedException("Добавить юзера");
+    }
+
+    public User(int id, String username) {
+        super(id);
+        this.username = username;
+
+        users.add(this);
     }
 
     private double calculateRating() {

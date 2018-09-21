@@ -3,6 +3,7 @@ package edu.palevobot.entities;
 import jdk.jshell.spi.ExecutionControl;
 import org.telegram.telegrambots.meta.api.objects.Document;
 
+import java.io.InputStream;
 import java.sql.Date;
 import java.util.ArrayList;
 
@@ -12,10 +13,10 @@ public class Palevo extends Base {
     //current
     private String subject;
     private double rating;
-    private Document document;
+    private String document;
     public static ArrayList<Palevo> palevos = new ArrayList<>();
 
-    public Palevo(int id, Date dateOfCreation, String title, String description, Document document) throws ExecutionControl.NotImplementedException {
+    public Palevo(int id, Date dateOfCreation, String title, String description, String document) {
         super(id, dateOfCreation);
         this.title = title;
         this.description = description;
@@ -23,11 +24,9 @@ public class Palevo extends Base {
         this.document = document;
 
         palevos.add(this);
-        //Добавить палево в БД
-        throw new ExecutionControl.NotImplementedException("добавить палево в БД");
     }
 
-    public Palevo(int id, Date dateOfCreation, String title, String description, Document document, double rating) throws ExecutionControl.NotImplementedException {
+    public Palevo(int id, Date dateOfCreation, String title, String description, String document, double rating){
         super(id, dateOfCreation);
         this.title = title;
         this.description = description;
@@ -35,8 +34,16 @@ public class Palevo extends Base {
         this.document = document;
 
         palevos.add(this);
-        //Добавить палево в БД
-        throw new ExecutionControl.NotImplementedException("добавить палево в БД");
+    }
+
+    public Palevo(int id, String title, String description, String document, double rating){
+        super(id);
+        this.title = title;
+        this.description = description;
+        this.rating = rating;
+        this.document = document;
+
+        palevos.add(this);
     }
 
     public String getTitle() {
@@ -53,6 +60,10 @@ public class Palevo extends Base {
 
     public double getRating() {
         return rating;
+    }
+
+    public String getDocument() {
+        return document;
     }
 
     public void setTitle(String title) {

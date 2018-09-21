@@ -5,6 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 
@@ -24,7 +25,7 @@ public class UserJdbcDaoTest {
     }
 
     @Test
-    public void testInsert() throws SQLException {
+    public void testInsert() throws SQLException, IOException {
         jdbcDao.insert(user);
     }
 

@@ -55,7 +55,7 @@ public class PalevoBot extends TelegramLongPollingCommandBot {
             String documentId = update.getMessage().getDocument().getFileId();
             String title = update.getMessage().getDocument().getFileName();
             try {
-                new PalevoDaoFactory().getDao("jdbc").insert(new Palevo(0, title, "ХУЙ", documentId, 0.0));
+                new PalevoDaoFactory().getDao("jdbc").insert(new Palevo(0, title, "Описание", documentId, 0.0));
                 replyText("Загружен файлик - " + title, chatId);
             } catch (SQLException | TelegramApiException e) {
                 e.printStackTrace();

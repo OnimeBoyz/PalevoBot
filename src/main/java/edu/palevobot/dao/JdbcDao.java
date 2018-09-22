@@ -26,7 +26,7 @@ public abstract class JdbcDao<T extends Base> extends Dao<T> {
                 preparedStatement.close();
             }
             catch (SQLException e){
-                System.out.println("AAA");
+                e.printStackTrace();
             }
         }
     }

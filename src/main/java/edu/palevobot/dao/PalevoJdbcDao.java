@@ -19,6 +19,7 @@ public class PalevoJdbcDao extends JdbcDao<Palevo> {
     private final String INSERT_NEW = "INSERT INTO palevos(date_of_creation, title, description, subject, rating, document) " +
             "VALUES(?,?,?,?,?,?)";
     private final String GET_BY_ID = "SELECT * FROM palevos WHERE id=?";
+    private final String GET_BY_DOCUMENT = "SELECT * FROM palevos WHERE document=?";
     private final String UPDATE = "UPDATE palevos SET date_of_creation=?, title=?" +
             ", description=?, subject=?, rating=?, document=? WHERE id=?";
     private final String DELETE = "DELETE FROM palevos where id=?";
@@ -47,6 +48,27 @@ public class PalevoJdbcDao extends JdbcDao<Palevo> {
         if(connection != null) {
             preparedStatement = connection.prepareStatement(GET_BY_ID);
             preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int palevoId = resultSet.getInt(1);
+                Date dateOfCreation = resultSet.getDate(2);
+                String title = resultSet.getString(3);
+                String description = resultSet.getString(4);
+                String subject = resultSet.getString(5);
+                double rating = resultSet.getDouble(6);
+                String document = resultSet.getString(7);
+                return new Palevo(palevoId, dateOfCreation, title, description
+                        , document, rating);
+            }
+            closePreparedStatement();
+        }
+        return null;
+    }
+
+    public Palevo getByDocumentId(Palevo palevo) throws SQLException {
+        if(connection != null) {
+            preparedStatement = connection.prepareStatement(GET_BY_DOCUMENT);
+            preparedStatement.setString(1, palevo.getDocument());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int palevoId = resultSet.getInt(1);

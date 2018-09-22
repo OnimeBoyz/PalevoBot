@@ -1,5 +1,6 @@
 package edu.palevobot.commands;
 
+import edu.palevobot.dao.UserDaoFactory;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Chat;
@@ -8,6 +9,7 @@ import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.logging.BotLogger;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class StartCommand extends BotCommand {
@@ -27,7 +29,13 @@ public class StartCommand extends BotCommand {
         SendMessage answer = new SendMessage();
         answer.setChatId(chat.getId().toString());
         answer.setText("Hi " + user.getUserName());
-
+        try {
+            new UserDaoFactory().getDao("jdbc").insert(new edu.palevobot.entities.User(0, user.getUserName()));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         try {
             absSender.execute(answer);
         } catch (TelegramApiException e) {

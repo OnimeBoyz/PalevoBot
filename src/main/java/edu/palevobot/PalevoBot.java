@@ -4,6 +4,7 @@ import edu.palevobot.commands.GetFileCommand;
 import edu.palevobot.commands.HeapCommand;
 import edu.palevobot.commands.StartCommand;
 import edu.palevobot.config.BotConfig;
+import edu.palevobot.dao.JdbcDao;
 import edu.palevobot.dao.PalevoDaoFactory;
 import edu.palevobot.entities.Palevo;
 import org.json.JSONObject;
@@ -48,14 +49,15 @@ public class PalevoBot extends TelegramLongPollingCommandBot {
 
     @Override
     public void processNonCommandUpdate(Update update) {
-        System.out.println("nice");
         if(update.hasMessage() && update.getMessage().hasDocument()) {
             long chatId = update.getMessage().getChatId();
             Document document = update.getMessage().getDocument();
             String documentId = update.getMessage().getDocument().getFileId();
             String title = update.getMessage().getDocument().getFileName();
             try {
-                new PalevoDaoFactory().getDao("jdbc").insert(new Palevo(0, title, "Описание", documentId, 0.0));
+                JdbcDao jdbcDao = (JdbcDao) new PalevoDaoFactory().getDao("jdbc");
+                jdbcDao.insert(new Palevo(0, title, "Описание", documentId, 0.0));
+                jdbcDao.closeConnection();
                 replyText("Загружен файлик - " + title, chatId);
             } catch (SQLException | TelegramApiException e) {
                 e.printStackTrace();
@@ -71,11 +73,12 @@ public class PalevoBot extends TelegramLongPollingCommandBot {
             long chatId = update.getCallbackQuery().getMessage().getChatId();
             try {
                 try {
+                    JdbcDao jdbcDao = (JdbcDao) new PalevoDaoFactory().getDao("jdbc");
+                    Palevo palevo = (Palevo) jdbcDao.getById(Integer.parseInt(callData));
+                    jdbcDao.closeConnection();
                     execute(new SendDocument()
                             .setChatId(chatId)
-                            .setDocument(new PalevoDaoFactory()
-                                    .getDao("jdbc")
-                                    .getById(Integer.parseInt(callData)).getDocument()));
+                            .setDocument(palevo.getDocument()));
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }

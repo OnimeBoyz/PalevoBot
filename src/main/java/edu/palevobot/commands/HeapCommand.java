@@ -1,5 +1,6 @@
 package edu.palevobot.commands;
 
+import edu.palevobot.dao.JdbcDao;
 import edu.palevobot.dao.PalevoDaoFactory;
 import edu.palevobot.entities.Palevo;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
@@ -33,18 +34,20 @@ public class HeapCommand extends BotCommand {
 
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] arguments) {
-        //ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
-
+        //Вытаскиваем все файлики(айдишки) из бд и формируем наши кнопочки. :)
         try {
-            for (Palevo palevo : new PalevoDaoFactory().getDao("jdbc").getAll()) {
+            JdbcDao jdbcDao = (JdbcDao) new PalevoDaoFactory().getDao("jdbc");
+            for (Palevo palevo : (ArrayList<Palevo>) jdbcDao.getAll()) {
                 List<InlineKeyboardButton> rowInline = new ArrayList<>();
+                //Передаем ключи файлов в колбэки
                 rowInline.add(new InlineKeyboardButton()
                         .setText(palevo.getTitle())
                         .setCallbackData(Integer.toString(palevo.getId())));
                 rowsInline.add(rowInline);
             }
+            jdbcDao.closeConnection();
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -11,6 +11,8 @@ public class UserDaoFactory extends DaoFactory<User> {
         switch (type){
             case "jdbc":
                 return new UserJdbcDao();
+            case "nosql":
+                return new UserNoSqlDao();
         }
         return null;
     }

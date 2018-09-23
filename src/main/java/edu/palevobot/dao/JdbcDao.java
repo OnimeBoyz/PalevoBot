@@ -12,7 +12,7 @@ public abstract class JdbcDao<T extends Base> extends Dao<T> {
     protected PreparedStatement preparedStatement;
     protected Connection connection;
     public JdbcDao() throws SQLException {
-        connection = DriverManager.getConnection(DaoConstants.URL,
+        connection = DriverManager.getConnection(DaoConstants.JDBC_URL,
                 DaoConstants.USERNAME, DaoConstants.PASSWORD);
     }
 

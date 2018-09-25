@@ -1,7 +1,6 @@
 package edu.palevobot.entities;
 
-import edu.palevobot.dao.UserDaoFactory;
-import jdk.jshell.spi.ExecutionControl;
+import edu.palevobot.dao.user.UserDaoFactory;
 
 import java.sql.Date;
 import java.sql.SQLException;

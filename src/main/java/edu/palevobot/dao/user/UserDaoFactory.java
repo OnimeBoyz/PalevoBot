@@ -1,5 +1,7 @@
-package edu.palevobot.dao;
+package edu.palevobot.dao.user;
 
+import edu.palevobot.dao.Dao;
+import edu.palevobot.dao.DaoFactory;
 import edu.palevobot.entities.User;
 
 import java.sql.SQLException;

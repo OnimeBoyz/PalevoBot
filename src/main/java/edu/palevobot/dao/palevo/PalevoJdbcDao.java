@@ -1,15 +1,9 @@
-package edu.palevobot.dao;
+package edu.palevobot.dao.palevo;
 
-import edu.palevobot.config.BotConfig;
+import edu.palevobot.dao.JdbcDao;
 import edu.palevobot.entities.Palevo;
-import edu.palevobot.entities.User;
-import org.telegram.telegrambots.meta.api.methods.GetFile;
-import org.telegram.telegrambots.meta.api.objects.Document;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;

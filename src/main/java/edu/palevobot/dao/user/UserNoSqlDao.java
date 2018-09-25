@@ -1,8 +1,9 @@
-package edu.palevobot.dao;
+package edu.palevobot.dao.user;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.client.MongoCollection;
+import edu.palevobot.dao.NoSqlDao;
 import edu.palevobot.entities.User;
 import org.bson.Document;
 import org.bson.conversions.Bson;

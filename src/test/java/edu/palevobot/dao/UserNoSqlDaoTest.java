@@ -1,5 +1,6 @@
 package edu.palevobot.dao;
 
+import edu.palevobot.dao.user.UserDaoFactory;
 import edu.palevobot.entities.User;
 import org.junit.After;
 import org.junit.Before;
@@ -8,8 +9,6 @@ import org.junit.Test;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import static org.junit.Assert.*;
 
 public class UserNoSqlDaoTest {
     NoSqlDao noSqlDao;

@@ -1,5 +1,6 @@
-package edu.palevobot.dao;
+package edu.palevobot.dao.user;
 
+import edu.palevobot.dao.JdbcDao;
 import edu.palevobot.entities.User;
 
 import java.sql.Date;
@@ -86,10 +87,10 @@ public class UserJdbcDao extends JdbcDao<User> {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SELECT_ALL);
             while (resultSet.next()) {
-                int UserId = resultSet.getInt(1);
-                String UserUsername = resultSet.getString(2);
-                Date dateOfCreation = resultSet.getDate(3);
-                res.add(new User(UserId, dateOfCreation, UserUsername));
+                int userId = resultSet.getInt(1);
+                String userUsername = resultSet.getString(2);
+                Date userDateOfCreation = resultSet.getDate(3);
+                res.add(new User(userId, userDateOfCreation, userUsername));
             }
         }
         return res;

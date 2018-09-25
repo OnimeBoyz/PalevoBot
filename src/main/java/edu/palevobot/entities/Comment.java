@@ -6,23 +6,27 @@ import java.sql.Date;
 import java.sql.SQLException;
 
 public class Comment extends Base {
-    private int userId;
+    private int palevoId;
 
     private String content;
-    public Comment(int id, Date dateOfCreation, int userId, int palevoId, String content) {
+    public Comment(int id, Date dateOfCreation, int palevoId, String content) {
         super(id, dateOfCreation);
-        this.userId = userId;
+        this.palevoId = palevoId;
     }
 
 
-    public int getUserId() {
-        return userId;
+    public int getPalevoId() {
+        return palevoId;
+    }
+
+    public String getContent() {
+        return content;
     }
 
     @Override
     public String toString() {
         try {
-            return User.getById(userId).getUsername() + getDateOfCreation() + content;
+            return User.getById(palevoId).getUsername() + getDateOfCreation() + content;
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -1,15 +1,13 @@
 package edu.palevobot.dao;
 
+import edu.palevobot.dao.user.UserDaoFactory;
 import edu.palevobot.entities.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.SQLException;
-
-import static org.junit.Assert.*;
 
 public class UserJdbcDaoTest {
     JdbcDao jdbcDao;

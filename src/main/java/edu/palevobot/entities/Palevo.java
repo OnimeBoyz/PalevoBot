@@ -1,10 +1,13 @@
 package edu.palevobot.entities;
 
+import edu.palevobot.dao.JdbcDao;
+import edu.palevobot.dao.palevo.PalevoDaoFactory;
 import jdk.jshell.spi.ExecutionControl;
 import org.telegram.telegrambots.meta.api.objects.Document;
 
 import java.io.InputStream;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Palevo extends Base {
@@ -80,5 +83,16 @@ public class Palevo extends Base {
 
     public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    public static Palevo getById(int id) throws SQLException {
+        for (Palevo palevo : Palevo.palevos) {
+            if(palevo.getId() == id)
+                return palevo;
+        }
+        JdbcDao jdbcDao = (JdbcDao) new PalevoDaoFactory().getDao("jdbc");
+        Palevo palevo = (Palevo) jdbcDao.getById(id);
+        jdbcDao.closeConnection();
+        return (Palevo) palevo;
     }
 }

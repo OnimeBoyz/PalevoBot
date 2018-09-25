@@ -1,5 +1,6 @@
 package edu.palevobot.entities;
 
+import edu.palevobot.dao.JdbcDao;
 import edu.palevobot.dao.user.UserDaoFactory;
 
 import java.sql.Date;
@@ -48,7 +49,8 @@ public class User extends Base {
             if(user.getId() == id)
                 return user;
         }
-
-        return new UserDaoFactory().getDao("jdbc").getById(id);
+        JdbcDao jdbcDao = (JdbcDao) new UserDaoFactory().getDao("jdbc");
+        User user = (User) jdbcDao.getById(id);
+        return user;
     }
 }

@@ -49,9 +49,7 @@ public class PalevoBot extends TelegramLongPollingCommandBot {
                 jdbcDao.insert(new Palevo(0, title, "Описание", documentId, 0.0));
                 jdbcDao.closeConnection();
                 replyText("Загружен файлик - " + title, chatId);
-            } catch (SQLException | TelegramApiException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+            } catch (SQLException | TelegramApiException | IOException e) {
                 e.printStackTrace();
             }
         }

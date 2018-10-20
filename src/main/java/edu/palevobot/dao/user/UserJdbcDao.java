@@ -10,12 +10,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class UserJdbcDao extends JdbcDao<User> {
+
     private final String INSERT_NEW = "INSERT INTO users(username) VALUES(?)";
     private final String GET_BY_ID = "SELECT * FROM users WHERE id=?";
     private final String GET_BY_USERNAME = "SELECT * FROM users WHERE username=?";
     private final String UPDATE = "UPDATE users SET username=?, date_of_creation=?, rating=? WHERE id=?";
     private final String DELETE = "DELETE FROM users where id=?";
     private final String SELECT_ALL = "SELECT * FROM users";
+
     public UserJdbcDao() throws SQLException {
         super();
     }

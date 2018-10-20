@@ -26,6 +26,8 @@ public abstract class NoSqlDao<T extends Base> extends Dao<T>{
         }
     }
 
+    public abstract void drop();
+
     @Override
     public void closeConnection(){
                 if(mongoClient != null) {

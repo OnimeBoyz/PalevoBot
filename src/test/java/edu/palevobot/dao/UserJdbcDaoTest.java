@@ -77,4 +77,14 @@ public class UserJdbcDaoTest {
         dao.insert(user);
         Assert.assertEquals(user, dao.getById(user.getId()));
     }
+
+    @Test
+    public void update() throws SQLException{
+        //i think that it is failed because getById() works wrong and it can not find user with id
+        dao.insert(user);
+        String newName = "UPDATED NAME";
+        user.setUsername(newName);
+        dao.update(user);
+        Assert.assertEquals(user, dao.getByUsername(newName));
+    }
 }

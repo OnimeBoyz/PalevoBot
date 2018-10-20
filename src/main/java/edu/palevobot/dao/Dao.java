@@ -13,4 +13,5 @@ public abstract class Dao<T extends Base> {
     public abstract void update(T entity) throws SQLException;
     public abstract void delete(T entity) throws SQLException;
     public abstract ArrayList<T> getAll() throws SQLException;
+    public abstract void closeConnection();
 }

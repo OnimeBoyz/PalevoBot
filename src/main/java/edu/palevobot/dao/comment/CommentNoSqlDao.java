@@ -46,4 +46,11 @@ public class CommentNoSqlDao extends NoSqlDao<Comment> {
         //TODO
         return null;
     }
+
+    @Override
+    public void drop(){
+        if(mongoClient != null){
+            comments.drop();
+        }
+    }
 }

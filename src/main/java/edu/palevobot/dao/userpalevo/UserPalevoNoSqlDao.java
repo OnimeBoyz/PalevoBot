@@ -46,4 +46,11 @@ public class UserPalevoNoSqlDao extends NoSqlDao<UserPalevo> {
         //TODO
         return null;
     }
+
+    @Override
+    public void drop(){
+        if(mongoClient != null){
+            userPalevos.drop();
+        }
+    }
 }

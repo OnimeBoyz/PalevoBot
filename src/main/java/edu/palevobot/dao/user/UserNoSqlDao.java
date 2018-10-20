@@ -80,4 +80,10 @@ public class UserNoSqlDao extends NoSqlDao<User> {
                 .append("rating", user.getRating());
         return doc;
     }
+    @Override
+    public void drop(){
+        if(mongoClient != null){
+            users.drop();
+        }
+    }
 }

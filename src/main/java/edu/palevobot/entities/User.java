@@ -54,4 +54,16 @@ public class User extends Base {
         User user = (User) jdbcDao.getById(id);
         return user;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof User)) return false;
+        User user = (User)obj;
+        return this.getId() == user.getId() || getUsername().trim().equals(user.username.trim());
+    }
+
+    @Override
+    public int hashCode() {
+        return (super.hashCode() ^ username.hashCode());
+    }
 }

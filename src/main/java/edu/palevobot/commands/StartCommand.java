@@ -1,6 +1,7 @@
 package edu.palevobot.commands;
 
 import edu.palevobot.dao.JdbcDao;
+import edu.palevobot.dao.user.DaoType;
 import edu.palevobot.dao.user.UserDaoFactory;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -31,7 +32,7 @@ public class StartCommand extends BotCommand {
         answer.setText("Hi " + user.getUserName());
         //Раз палевод - навсегда палевод! Записываем челика в бд при вызове команды старт))
         try {
-            JdbcDao jdbcDao = (JdbcDao) new UserDaoFactory().getDao("jdbc");
+            JdbcDao jdbcDao = (JdbcDao) new UserDaoFactory().getDao(DaoType.SQL);
             jdbcDao.insert(new edu.palevobot.entities.User(0, user.getUserName()));
             jdbcDao.closeConnection();
         } catch (SQLException e) {

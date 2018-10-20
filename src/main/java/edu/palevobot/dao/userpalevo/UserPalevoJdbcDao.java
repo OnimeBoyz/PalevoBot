@@ -16,6 +16,7 @@ public class UserPalevoJdbcDao extends JdbcDao<UserPalevo> {
     private final String UPDATE = "UPDATE user_palevos SET user_id=?, palevo_id=? WHERE id=?";
     private final String DELETE = "DELETE FROM user_palevos where id=?";
     private final String SELECT_ALL = "SELECT * FROM users";
+    private final String TRUNCATE = "Truncate table user_palevos";
 
     public UserPalevoJdbcDao() throws SQLException {
         super();
@@ -82,5 +83,13 @@ public class UserPalevoJdbcDao extends JdbcDao<UserPalevo> {
             }
         }
         return res;
+    }
+
+    @Override
+    public void truncate() throws SQLException {
+        if(connection != null && !connection.isClosed()){
+        preparedStatement = connection.prepareStatement(TRUNCATE);
+        preparedStatement.executeUpdate();
+        }
     }
 }

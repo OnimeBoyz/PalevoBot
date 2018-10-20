@@ -18,6 +18,8 @@ public class PalevoJdbcDao extends JdbcDao<Palevo> {
             ", description=?, subject=?, rating=?, document=? WHERE id=?";
     private final String DELETE = "DELETE FROM palevos where id=?";
     private final String SELECT_ALL = "SELECT * FROM palevos";
+    private final String TRUNCATE = "Truncate table palevos";
+
     public PalevoJdbcDao() throws SQLException {
         super();
     }
@@ -126,5 +128,13 @@ public class PalevoJdbcDao extends JdbcDao<Palevo> {
             closePreparedStatement();
         }
         return palevos;
+    }
+
+    @Override
+    public void truncate() throws SQLException {
+        if(connection != null && !connection.isClosed()){
+            preparedStatement = connection.prepareStatement(TRUNCATE);
+            preparedStatement.executeUpdate();
+        }
     }
 }

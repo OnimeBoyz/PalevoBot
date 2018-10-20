@@ -18,6 +18,7 @@ public class CommentJdbcDao extends JdbcDao<Comment> {
             ", date_of_creation=? WHERE id=?";
     private final String DELETE = "DELETE FROM comments where id=?";
     private final String SELECT_ALL = "SELECT * FROM comments";
+    private final String TRUNCATE = "Truncate table comments";
 
     public CommentJdbcDao() throws SQLException {
         super();
@@ -91,5 +92,13 @@ public class CommentJdbcDao extends JdbcDao<Comment> {
             closePreparedStatement();
         }
         return comments;
+    }
+
+    @Override
+    public void truncate() throws SQLException {
+        if(connection != null && !connection.isClosed()){
+            preparedStatement = connection.prepareStatement(TRUNCATE);
+            preparedStatement.executeUpdate();
+        }
     }
 }

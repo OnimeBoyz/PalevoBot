@@ -18,7 +18,7 @@ public abstract class JdbcDao<T extends Base> extends Dao<T> {
                 DaoConstants.USERNAME, DaoConstants.PASSWORD);
     }
 
-    public abstract void truncate();
+    public abstract void truncate() throws SQLException;
 
     public PreparedStatement getPreparedStatement() {
         return preparedStatement;

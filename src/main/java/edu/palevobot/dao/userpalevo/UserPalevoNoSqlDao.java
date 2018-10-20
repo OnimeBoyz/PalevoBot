@@ -1,13 +1,25 @@
 package edu.palevobot.dao.userpalevo;
 
+import com.mongodb.client.MongoCollection;
 import edu.palevobot.dao.NoSqlDao;
 import edu.palevobot.entities.UserPalevo;
+import org.bson.Document;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UserPalevoNoSqlDao extends NoSqlDao<UserPalevo> {
+
+    MongoCollection<Document> userPalevos;
+
+    public UserPalevoNoSqlDao(){
+        super();
+        if(mongoClient != null){
+            userPalevos = mongoDatabase.getCollection("userPalevos");
+        }
+    }
+
     @Override
     public void insert(UserPalevo entity) throws SQLException, IOException {
         //TODO

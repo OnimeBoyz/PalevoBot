@@ -42,6 +42,13 @@ public class UserNoSqlDao extends NoSqlDao<User> {
         return null;
     }
 
+    public User getByUserName(String userName) throws SQLException{
+        if(mongoClient != null){
+            return fromDocument(users.find(eq("userName", userName)).first());
+        }
+        return null;
+    }
+
     @Override
     public void update(User entity) throws SQLException {
         if(users != null) {

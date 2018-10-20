@@ -16,11 +16,12 @@ import java.util.Iterator;
 import static com.mongodb.client.model.Filters.eq;
 
 public class UserNoSqlDao extends NoSqlDao<User> {
+
     private MongoCollection<Document> users;
+
     public UserNoSqlDao() {
         super();
         if(mongoClient != null) {
-            mongoDatabase = mongoClient.getDatabase("palevobotdb");
             users = mongoDatabase.getCollection("users");
         }
     }

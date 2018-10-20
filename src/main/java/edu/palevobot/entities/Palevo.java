@@ -2,6 +2,7 @@ package edu.palevobot.entities;
 
 import edu.palevobot.dao.JdbcDao;
 import edu.palevobot.dao.palevo.PalevoDaoFactory;
+import edu.palevobot.dao.user.DaoType;
 import jdk.jshell.spi.ExecutionControl;
 import org.telegram.telegrambots.meta.api.objects.Document;
 
@@ -90,7 +91,7 @@ public class Palevo extends Base {
             if(palevo.getId() == id)
                 return palevo;
         }
-        JdbcDao jdbcDao = (JdbcDao) new PalevoDaoFactory().getDao("jdbc");
+        JdbcDao jdbcDao = (JdbcDao) new PalevoDaoFactory().getDao(DaoType.SQL);
         Palevo palevo = (Palevo) jdbcDao.getById(id);
         jdbcDao.closeConnection();
         return (Palevo) palevo;

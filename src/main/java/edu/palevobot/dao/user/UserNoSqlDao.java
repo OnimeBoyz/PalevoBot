@@ -76,8 +76,13 @@ public class UserNoSqlDao extends NoSqlDao<User> {
     }
 
     public User fromDocument(Document document) {
-        return new User((int) document.get("id")
-                , (String) document.get("username"));
+        try{
+            return new User((int) document.get("id")
+                    , (String) document.get("username"));
+        }
+        catch (NullPointerException ex){
+            return null;
+        }
     }
 
     public Document toDocument(User user) {

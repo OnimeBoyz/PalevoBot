@@ -4,6 +4,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.client.MongoCollection;
 import edu.palevobot.dao.NoSqlDao;
+import edu.palevobot.dao.parameters.PaginatedParameters;
 import edu.palevobot.entities.User;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -97,5 +99,9 @@ public class UserNoSqlDao extends NoSqlDao<User> {
         if(mongoClient != null){
             users.drop();
         }
+    }
+
+    public List<User> getAll(PaginatedParameters paginatedParameters){
+        return null;//TODO idk wtf there should be
     }
 }

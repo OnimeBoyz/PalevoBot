@@ -14,17 +14,19 @@ public class User extends Base {
 
     public static ArrayList<User> users = new ArrayList<>();
 
-    public User(int id, Date dateOfCreation, String username) {
-        super(id, dateOfCreation);
-        this.username = username;
-        this.rating = calculateRating();
-
-        users.add(this);
-    }
+    //TODO: create ctor User(String username)
 
     public User(int id, String username) {
         super(id);
         this.username = username;
+
+        users.add(this);
+    }
+
+    public User(int id, Date dateOfCreation, String username) {
+        super(id, dateOfCreation);
+        this.username = username;
+        this.rating = calculateRating();
 
         users.add(this);
     }

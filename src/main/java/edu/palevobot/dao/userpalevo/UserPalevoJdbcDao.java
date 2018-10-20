@@ -16,6 +16,7 @@ public class UserPalevoJdbcDao extends JdbcDao<UserPalevo> {
     private final String UPDATE = "UPDATE user_palevos SET user_id=?, palevo_id=? WHERE id=?";
     private final String DELETE = "DELETE FROM user_palevos where id=?";
     private final String SELECT_ALL = "SELECT * FROM users";
+
     public UserPalevoJdbcDao() throws SQLException {
         super();
     }
@@ -28,7 +29,6 @@ public class UserPalevoJdbcDao extends JdbcDao<UserPalevo> {
             preparedStatement.setInt(2, entity.getPalevoId());
             preparedStatement.execute();
         }
-
     }
 
     @Override

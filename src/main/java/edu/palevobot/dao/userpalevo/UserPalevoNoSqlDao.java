@@ -8,6 +8,7 @@ import org.bson.Document;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserPalevoNoSqlDao extends NoSqlDao<UserPalevo> {
 
@@ -42,7 +43,7 @@ public class UserPalevoNoSqlDao extends NoSqlDao<UserPalevo> {
     }
 
     @Override
-    public ArrayList<UserPalevo> getAll() throws SQLException {
+    public List<UserPalevo> getAll() throws SQLException {
         //TODO
         return null;
     }

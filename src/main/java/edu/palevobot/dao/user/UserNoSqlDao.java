@@ -66,8 +66,8 @@ public class UserNoSqlDao extends NoSqlDao<User> {
     }
 
     @Override
-    public ArrayList<User> getAll() throws SQLException {
-        ArrayList<User> res = new ArrayList<>();
+    public List<User> getAll() throws SQLException {
+        List<User> res = new ArrayList<>();
         if(users != null) {
             Iterator it = users.find().iterator();
             while (it.hasNext()) {
@@ -99,9 +99,5 @@ public class UserNoSqlDao extends NoSqlDao<User> {
         if(mongoClient != null){
             users.drop();
         }
-    }
-
-    public List<User> getAll(PaginatedParameters paginatedParameters){
-        return null;//TODO idk wtf there should be
     }
 }

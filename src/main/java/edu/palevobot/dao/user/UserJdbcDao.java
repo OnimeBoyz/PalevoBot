@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserJdbcDao extends JdbcDao<User> {
 
@@ -84,8 +85,8 @@ public class UserJdbcDao extends JdbcDao<User> {
     }
 
     @Override
-    public ArrayList<User> getAll() throws SQLException {
-        ArrayList<User> res = new ArrayList<>();
+    public List<User> getAll() throws SQLException {
+        List<User> res = new ArrayList<>();
         if(connection != null) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SELECT_ALL);

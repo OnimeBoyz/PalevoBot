@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserPalevoJdbcDao extends JdbcDao<UserPalevo> {
     private final String INSERT_NEW = "INSERT INTO user_palevos(user_id, palevo_id) VALUES(?,?)";
@@ -70,8 +71,8 @@ public class UserPalevoJdbcDao extends JdbcDao<UserPalevo> {
     }
 
     @Override
-    public ArrayList<UserPalevo> getAll() throws SQLException {
-        ArrayList<UserPalevo> res = new ArrayList<>();
+    public List<UserPalevo> getAll() throws SQLException {
+        List<UserPalevo> res = new ArrayList<>();
         if(connection != null) {
             preparedStatement = connection.prepareStatement(SELECT_ALL);
             ResultSet resultSet = preparedStatement.executeQuery();

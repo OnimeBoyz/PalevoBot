@@ -8,6 +8,7 @@ import org.bson.Document;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CommentNoSqlDao extends NoSqlDao<Comment> {
 
@@ -42,7 +43,7 @@ public class CommentNoSqlDao extends NoSqlDao<Comment> {
     }
 
     @Override
-    public ArrayList<Comment> getAll() throws SQLException {
+    public List<Comment> getAll() throws SQLException {
         //TODO
         return null;
     }

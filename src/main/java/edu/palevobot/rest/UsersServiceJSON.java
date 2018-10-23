@@ -90,20 +90,8 @@ public class UsersServiceJSON implements IService<User> {
     //TODO: do this
     @GET
     @Override
-    public Response getAll(
-            @QueryParam("keyword") String keyword,
-            @QueryParam("orderBy")String orderBy,
-            @QueryParam("order")String order,
-            @QueryParam("pageNum")int pageNum,
-            @QueryParam("pageSize")int pageSize
-    ) {
-        UserListParameters parameters = new UserListParameters();
-        parameters.setKeyword(keyword);
-        parameters.setPageNum(pageNum);
-        parameters.setPageSize(pageSize);
-        parameters.setOrderBy(orderBy);
-        parameters.setOrder(Order.fromString(order));
-        List<User> userList = dao.getAll(parameters);
+    public Response getAll() throws SQLException {
+        List<User> userList = dao.getAll();
         if(userList != null)
         {
             GenericEntity<List<User>> entity = new GenericEntity<>(userList){};

@@ -11,5 +11,5 @@ public interface IService<T extends Base> {
     Response removeObject(int id) throws SQLException;
     Response createObject(T obj) throws IOException, SQLException;
     Response updateObject(T obj) throws SQLException;
-    Response getAll(String keyword, String orderBy, String order, int pageNum, int pageSize);
+    Response getAll() throws SQLException;
 }

@@ -21,6 +21,7 @@ public class UserJdbcDaoTest {
     public void setUp() throws Exception {
         dao =  (UserJdbcDao) new UserDaoFactory().getDao(DaoType.SQL);
         user = new User(23, "TEST ME");
+        //TestCommit
     }
 
     @After

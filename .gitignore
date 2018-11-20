@@ -11,3 +11,12 @@
 .gradle/
 .out/
 .idea/codeStyles/Project.xml
+out/production/classes/edu/palevobot/controllers/UserController.class
+out/production/classes/edu/palevobot/entities/Base.class
+out/production/classes/edu/palevobot/entities/UserPalevo.class
+out/production/classes/edu/palevobot/entities/Base.class
+out/production/classes/edu/palevobot/Main.class
+out/production/classes/edu/palevobot/repositories/UserRepository.class
+out/production/resources/application.properties
+out/test/classes/edu/palevobot/entities/UserTest.class
+out/test/classes/edu/palevobot/entities/UserPalevoTest.class

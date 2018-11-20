@@ -14,9 +14,10 @@ import static edu.palevobot.config.BotConfig.BOT_USERNAME;
 @EnableJpaAuditing
 public class Main {
     public static void main(String[] args) {
+        startApi(args);
       }
 
-    private void startBot(){
+    private static void startBot(){
         try {
             ApiContextInitializer.init();
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
@@ -31,7 +32,7 @@ public class Main {
         System.out.println("PalevoBot successfully started!");
 
     }
-    private void startApi(String[] args){
+    private static void startApi(String[] args){
         SpringApplication.run(Main.class, args);
     }
 }

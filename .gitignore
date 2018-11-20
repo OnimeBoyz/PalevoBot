@@ -20,3 +20,6 @@ out/production/classes/edu/palevobot/repositories/UserRepository.class
 out/production/resources/application.properties
 out/test/classes/edu/palevobot/entities/UserTest.class
 out/test/classes/edu/palevobot/entities/UserPalevoTest.class
+out/production/classes/edu/palevobot/entities/User.class
+out/
+idea/

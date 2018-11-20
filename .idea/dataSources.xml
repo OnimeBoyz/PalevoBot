@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="palevobotdb@localhost" uuid="2078af45-2c33-4fc3-8c61-060d63e9e43d">
+    <data-source source="LOCAL" name="jdbc:mysql://localhost:3306/palevobotdb?serverTimezone=Europe/Kiev&amp;useSSL=false" uuid="2078af45-2c33-4fc3-8c61-060d63e9e43d">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/palevobotdb</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/palevobotdb?serverTimezone=Europe/Kiev&amp;useSSL=false</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
         <property name="zeroDateTimeBehavior" value="convertToNull" />

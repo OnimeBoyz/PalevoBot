@@ -3,13 +3,21 @@ package edu.palevobot.entities;
 import edu.palevobot.dao.JdbcDao;
 import edu.palevobot.dao.user.DaoType;
 import edu.palevobot.dao.user.UserDaoFactory;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+@Entity
+@Table(name = "users")
+@EntityListeners(AuditingEntityListener.class)
 public class User extends Base {
+    @NotNull
     private String username;
+    @NotNull
     private double rating;
 
     public static ArrayList<User> users = new ArrayList<>();
@@ -86,5 +94,9 @@ public class User extends Base {
     @Override
     public int hashCode() {
         return (super.hashCode() ^ username.hashCode());
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 }

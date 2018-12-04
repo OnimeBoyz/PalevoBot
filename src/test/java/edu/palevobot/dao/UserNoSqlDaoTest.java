@@ -3,6 +3,7 @@ package edu.palevobot.dao;
 import edu.palevobot.dao.user.UserDaoFactory;
 import edu.palevobot.entities.User;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,7 +17,7 @@ public class UserNoSqlDaoTest {
     @Before
     public void setUp() throws Exception {
         noSqlDao = (NoSqlDao) new UserDaoFactory().getDao("nosql");
-        user= new User(0, "title");
+        user = new User(0, "title");
     }
 
     @After
@@ -26,6 +27,8 @@ public class UserNoSqlDaoTest {
     @Test
     public void insert() throws IOException, SQLException {
         noSqlDao.insert(user);
+        User newUser =(User) noSqlDao.getById(user.getId());
+        Assert.assertEquals(user.toString(), newUser.toString());
     }
 
     @Test

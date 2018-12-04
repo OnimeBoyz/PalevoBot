@@ -53,4 +53,9 @@ public class User extends Base {
         User user = (User) jdbcDao.getById(id);
         return user;
     }
+
+    @Override
+    public String toString() {
+        return getId() + " " + username + rating + "\n";
+    }
 }

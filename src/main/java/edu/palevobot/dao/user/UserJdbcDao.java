@@ -3,6 +3,7 @@ package edu.palevobot.dao.user;
 import edu.palevobot.dao.JdbcDao;
 import edu.palevobot.entities.User;
 
+import javax.xml.transform.Result;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,10 +13,10 @@ import java.util.List;
 
 public class UserJdbcDao extends JdbcDao<User> {
 
-    private final String INSERT_NEW = "INSERT INTO users(username) VALUES(?)";
+    private final String INSERT_NEW = "INSERT INTO users(username, rating, date_of_creation) VALUES(?, ?, ?)";
     private final String GET_BY_ID = "SELECT * FROM users WHERE id=?";
     private final String GET_BY_USERNAME = "SELECT * FROM users WHERE username=?";
-    private final String UPDATE = "UPDATE users SET username=?, date_of_creation=?, rating=? WHERE id=?";
+    private final String UPDATE = "UPDATE users SET username=?, rating=?, date_of_creation=? WHERE id=?";
     private final String DELETE = "DELETE FROM users where id=?";
     private final String SELECT_ALL = "SELECT * FROM users";
     private final String TRUNCATE = "Truncate table users";
@@ -28,6 +29,8 @@ public class UserJdbcDao extends JdbcDao<User> {
         if(connection != null) {
             preparedStatement = connection.prepareStatement(INSERT_NEW);
             preparedStatement.setString(1, entity.getUsername());
+            preparedStatement.setDouble(2, entity.getRating());
+            preparedStatement.setDate(3, entity.getDateOfCreation());
             preparedStatement.execute();
         }
     }
@@ -38,12 +41,7 @@ public class UserJdbcDao extends JdbcDao<User> {
             preparedStatement = connection.prepareStatement(GET_BY_ID);
             preparedStatement.setInt(1,id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                int UserId = resultSet.getInt(1);
-                String UserUsername = resultSet.getString(2);
-                Date dateOfCreation = resultSet.getDate(3);
-                return new User(UserId, dateOfCreation, UserUsername);
-            }
+            return getUserFromResult(resultSet);
         }
         return null;
     }
@@ -53,23 +51,28 @@ public class UserJdbcDao extends JdbcDao<User> {
             preparedStatement = connection.prepareStatement(GET_BY_USERNAME);
             preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                int UserId = resultSet.getInt(1);
-                String UserUsername = resultSet.getString(2);
-                Date dateOfCreation = resultSet.getDate(3);
-                return new User(UserId, dateOfCreation, UserUsername);
-            }
+            return getUserFromResult(resultSet);
         }
         return null;
     }
 
+    public User getUserFromResult(ResultSet resultSet) throws SQLException {
+        while (resultSet.next()) {
+            int UserId = resultSet.getInt(1);
+            String UserUsername = resultSet.getString(2);
+            Double rating = resultSet.getDouble(3);
+            Date dateOfCreation = resultSet.getDate(4);
+            return new User(UserId, dateOfCreation, UserUsername);
+        }
+        return null;
+    }
     @Override
     public void update(User entity) throws SQLException {
         if(connection != null) {
             preparedStatement = connection.prepareStatement(UPDATE);
             preparedStatement.setString(1, entity.getUsername());
-            preparedStatement.setDate(2, entity.getDateOfCreation());
-            preparedStatement.setDouble(3, entity.getRating());
+            preparedStatement.setDouble(2, entity.getRating());
+            preparedStatement.setDate(3, entity.getDateOfCreation());
             preparedStatement.setInt(4, entity.getId());
             preparedStatement.executeUpdate();
         }
@@ -93,8 +96,9 @@ public class UserJdbcDao extends JdbcDao<User> {
             while (resultSet.next()) {
                 int userId = resultSet.getInt(1);
                 String userUsername = resultSet.getString(2);
-                Date userDateOfCreation = resultSet.getDate(3);
-                res.add(new User(userId, userDateOfCreation, userUsername));
+                double rating = resultSet.getDouble(3);
+                Date userDateOfCreation = resultSet.getDate(4);
+                res.add(new User(userId, userDateOfCreation, userUsername, rating));
             }
         }
         return res;

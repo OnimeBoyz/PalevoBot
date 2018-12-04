@@ -9,11 +9,34 @@ public class Comment extends Base {
     private int palevoId;
 
     private String content;
+
+    public Comment(int palevoId, String content){
+        super();
+        this.content = content;
+        this.palevoId = palevoId;
+    }
+    public Comment(Palevo palevo, String content){
+        super();
+        this.content = content;
+        this.palevoId = palevo.getId();
+    }
+
+    public Comment(Date dateOfCreation, int palevoId, String content){
+        super(dateOfCreation);
+        this.content = content;
+        this.palevoId = palevoId;
+    }
+    public Comment(Date dateOfCreation, Palevo palevo, String content){
+        super(dateOfCreation);
+        this.content = content;
+        this.palevoId = palevo.getId();
+    }
+
     public Comment(int id, Date dateOfCreation, int palevoId, String content) {
         super(id, dateOfCreation);
         this.palevoId = palevoId;
+        this.content = content;
     }
-
 
     public int getPalevoId() {
         return palevoId;

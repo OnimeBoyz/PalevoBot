@@ -15,10 +15,26 @@ public class UserPalevo extends Base{
 
     public static ArrayList<UserPalevo> userPalevos = new ArrayList<>();
 
+    public UserPalevo(User user, Palevo palevo){
+        super();
+        this.userId = user.getId();
+        this.palevoId = palevo.getId();
+    }
+    public UserPalevo(int userId, int palevoId){
+        super();
+        this.userId = userId;
+        this.palevoId = palevoId;
+    }
+
     public UserPalevo(int id, User user, Palevo palevo) {
         super(id);
         userId = user.getId();
         palevoId = palevo.getId();
+    }
+    public UserPalevo(int id, int userId, int palevoId) {
+        super(id);
+        this.userId = userId;
+        this.palevoId = palevoId;
     }
 
     public User getUser() throws SQLException {

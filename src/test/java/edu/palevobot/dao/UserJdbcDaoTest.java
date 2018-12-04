@@ -20,8 +20,7 @@ public class UserJdbcDaoTest {
     @Before
     public void setUp() throws Exception {
         dao =  (UserJdbcDao) new UserDaoFactory().getDao(DaoType.SQL);
-        user = new User(23, "TEST ME");
-        //TestCommit
+        user = new User(1, "TEST ME");
     }
 
     @After
@@ -46,7 +45,7 @@ public class UserJdbcDaoTest {
 
     @Test
     public void truncate() throws SQLException{
-        User secondUser = new User(11, "SECOND");
+        User secondUser = new User("SECOND");
         dao.insert(user);
         dao.insert(secondUser);
         Assert.assertEquals(2, dao.getAll().size());
@@ -57,7 +56,7 @@ public class UserJdbcDaoTest {
 
     @Test
     public void getAll() throws SQLException{
-        User secondUser = new User(6, "SECOND USER");
+        User secondUser = new User( "SECOND USER");
 
         dao.insert(user);
         Assert.assertEquals(1, dao.getAll().size());
@@ -81,7 +80,6 @@ public class UserJdbcDaoTest {
 
     @Test
     public void update() throws SQLException{
-        //i think that it is failed because getById() works wrong and it can not find user with id
         dao.insert(user);
         String newName = "UPDATED NAME";
         user.setUsername(newName);

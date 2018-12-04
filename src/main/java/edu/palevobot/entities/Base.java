@@ -7,9 +7,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import java.sql.Date;
 
-@Entity
-@Table(name = "base")
-@EntityListeners(AuditingEntityListener.class)
+@MappedSuperclass
 public abstract class Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

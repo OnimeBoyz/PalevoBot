@@ -11,7 +11,7 @@ import java.sql.Date;
 public abstract class Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @NotNull
     @Column(name = "date_of_creation")
@@ -22,7 +22,7 @@ public abstract class Base {
     }
 
     public Base(Date dateOfCreation){this.dateOfCreation = dateOfCreation; }
-    public Base(int id){
+    public Base(Integer id){
         this();
         this.id = id;
     }
@@ -32,7 +32,7 @@ public abstract class Base {
         this.dateOfCreation = dateOfCreation;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

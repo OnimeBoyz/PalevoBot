@@ -8,6 +8,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PalevoJdbcDao extends JdbcDao<Palevo> {
     private final String INSERT_NEW = "INSERT INTO palevos(date_of_creation, title, description, subject, rating, document) " +
@@ -18,6 +19,8 @@ public class PalevoJdbcDao extends JdbcDao<Palevo> {
             ", description=?, subject=?, rating=?, document=? WHERE id=?";
     private final String DELETE = "DELETE FROM palevos where id=?";
     private final String SELECT_ALL = "SELECT * FROM palevos";
+    private final String TRUNCATE = "Truncate table palevos";
+
     public PalevoJdbcDao() throws SQLException {
         super();
     }
@@ -107,8 +110,8 @@ public class PalevoJdbcDao extends JdbcDao<Palevo> {
     }
 
     @Override
-    public ArrayList<Palevo> getAll() throws SQLException {
-        ArrayList<Palevo> palevos = new ArrayList<>();
+    public List<Palevo> getAll() throws SQLException {
+        List<Palevo> palevos = new ArrayList<>();
         if(connection != null) {
             preparedStatement = connection.prepareStatement(SELECT_ALL);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -126,5 +129,13 @@ public class PalevoJdbcDao extends JdbcDao<Palevo> {
             closePreparedStatement();
         }
         return palevos;
+    }
+
+    @Override
+    public void truncate() throws SQLException {
+        if(connection != null && !connection.isClosed()){
+            preparedStatement = connection.prepareStatement(TRUNCATE);
+            preparedStatement.executeUpdate();
+        }
     }
 }

@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserPalevoJdbcDao extends JdbcDao<UserPalevo> {
     private final String INSERT_NEW = "INSERT INTO user_palevos(user_id, palevo_id) VALUES(?,?)";
@@ -16,6 +17,8 @@ public class UserPalevoJdbcDao extends JdbcDao<UserPalevo> {
     private final String UPDATE = "UPDATE user_palevos SET user_id=?, palevo_id=? WHERE id=?";
     private final String DELETE = "DELETE FROM user_palevos where id=?";
     private final String SELECT_ALL = "SELECT * FROM users";
+    private final String TRUNCATE = "Truncate table user_palevos";
+
     public UserPalevoJdbcDao() throws SQLException {
         super();
     }
@@ -28,7 +31,6 @@ public class UserPalevoJdbcDao extends JdbcDao<UserPalevo> {
             preparedStatement.setInt(2, entity.getPalevoId());
             preparedStatement.execute();
         }
-
     }
 
     @Override
@@ -69,8 +71,8 @@ public class UserPalevoJdbcDao extends JdbcDao<UserPalevo> {
     }
 
     @Override
-    public ArrayList<UserPalevo> getAll() throws SQLException {
-        ArrayList<UserPalevo> res = new ArrayList<>();
+    public List<UserPalevo> getAll() throws SQLException {
+        List<UserPalevo> res = new ArrayList<>();
         if(connection != null) {
             preparedStatement = connection.prepareStatement(SELECT_ALL);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -82,5 +84,13 @@ public class UserPalevoJdbcDao extends JdbcDao<UserPalevo> {
             }
         }
         return res;
+    }
+
+    @Override
+    public void truncate() throws SQLException {
+        if(connection != null && !connection.isClosed()){
+        preparedStatement = connection.prepareStatement(TRUNCATE);
+        preparedStatement.executeUpdate();
+        }
     }
 }

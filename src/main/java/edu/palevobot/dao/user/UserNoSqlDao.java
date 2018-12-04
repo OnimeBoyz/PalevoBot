@@ -4,6 +4,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.client.MongoCollection;
 import edu.palevobot.dao.NoSqlDao;
+import edu.palevobot.dao.parameters.PaginatedParameters;
 import edu.palevobot.entities.User;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -12,15 +13,17 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
 
 public class UserNoSqlDao extends NoSqlDao<User> {
+
     private MongoCollection<Document> users;
+
     public UserNoSqlDao() {
         super();
         if(mongoClient != null) {
-            mongoDatabase = mongoClient.getDatabase("palevobotdb");
             users = mongoDatabase.getCollection("users");
         }
     }
@@ -41,6 +44,13 @@ public class UserNoSqlDao extends NoSqlDao<User> {
         return null;
     }
 
+    public User getByUserName(String userName) throws SQLException{
+        if(mongoClient != null){
+            return fromDocument(users.find(eq("userName", userName)).first());
+        }
+        return null;
+    }
+
     @Override
     public void update(User entity) throws SQLException {
         if(users != null) {
@@ -56,8 +66,8 @@ public class UserNoSqlDao extends NoSqlDao<User> {
     }
 
     @Override
-    public ArrayList<User> getAll() throws SQLException {
-        ArrayList<User> res = new ArrayList<>();
+    public List<User> getAll() throws SQLException {
+        List<User> res = new ArrayList<>();
         if(users != null) {
             Iterator it = users.find().iterator();
             while (it.hasNext()) {
@@ -68,8 +78,13 @@ public class UserNoSqlDao extends NoSqlDao<User> {
     }
 
     public User fromDocument(Document document) {
-        return new User((int) document.get("id")
-                , (String) document.get("username"));
+        try{
+            return new User((int) document.get("id")
+                    , (String) document.get("username"));
+        }
+        catch (NullPointerException ex){
+            return null;
+        }
     }
 
     public Document toDocument(User user) {
@@ -78,5 +93,11 @@ public class UserNoSqlDao extends NoSqlDao<User> {
                 .append("date_of_creation", user.getDateOfCreation())
                 .append("rating", user.getRating());
         return doc;
+    }
+    @Override
+    public void drop(){
+        if(mongoClient != null){
+            users.drop();
+        }
     }
 }

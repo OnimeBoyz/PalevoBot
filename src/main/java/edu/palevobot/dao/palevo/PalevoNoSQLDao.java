@@ -1,13 +1,26 @@
 package edu.palevobot.dao.palevo;
 
+import com.mongodb.client.MongoCollection;
 import edu.palevobot.dao.NoSqlDao;
 import edu.palevobot.entities.Palevo;
+import org.bson.Document;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class PalevoNosqlDaoFactory extends NoSqlDao<Palevo> {
+public class PalevoNoSQLDao extends NoSqlDao<Palevo> {
+
+    private MongoCollection<Document> palevos;
+
+    public PalevoNoSQLDao(){
+        super();
+        if(mongoClient != null){
+            palevos = mongoDatabase.getCollection("palevos");
+        }
+    }
+
     @Override
     public void insert(Palevo entity) throws SQLException, IOException {
         //TODO
@@ -30,8 +43,15 @@ public class PalevoNosqlDaoFactory extends NoSqlDao<Palevo> {
     }
 
     @Override
-    public ArrayList<Palevo> getAll() throws SQLException {
+    public List<Palevo> getAll() throws SQLException {
         //TODO
         return null;
+    }
+
+    @Override
+    public void drop(){
+        if(mongoClient != null){
+            palevos.drop();
+        }
     }
 }

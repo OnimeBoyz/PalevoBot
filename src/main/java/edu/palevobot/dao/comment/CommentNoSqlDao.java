@@ -1,13 +1,26 @@
 package edu.palevobot.dao.comment;
 
+import com.mongodb.client.MongoCollection;
 import edu.palevobot.dao.NoSqlDao;
 import edu.palevobot.entities.Comment;
+import org.bson.Document;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CommentNoSqlDao extends NoSqlDao<Comment> {
+
+    private MongoCollection<Document> comments;
+
+    public CommentNoSqlDao(){
+        super();
+        if(mongoClient != null){
+            comments = mongoDatabase.getCollection("comments");
+        }
+    }
+
     @Override
     public void insert(Comment entity) throws SQLException, IOException {
         //TODO
@@ -30,8 +43,15 @@ public class CommentNoSqlDao extends NoSqlDao<Comment> {
     }
 
     @Override
-    public ArrayList<Comment> getAll() throws SQLException {
+    public List<Comment> getAll() throws SQLException {
         //TODO
         return null;
+    }
+
+    @Override
+    public void drop(){
+        if(mongoClient != null){
+            comments.drop();
+        }
     }
 }

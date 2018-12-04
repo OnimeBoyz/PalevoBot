@@ -5,6 +5,7 @@ import edu.palevobot.commands.HeapCommand;
 import edu.palevobot.commands.StartCommand;
 import edu.palevobot.dao.JdbcDao;
 import edu.palevobot.dao.palevo.PalevoDaoFactory;
+import edu.palevobot.dao.user.DaoType;
 import edu.palevobot.entities.Palevo;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
@@ -45,7 +46,7 @@ public class PalevoBot extends TelegramLongPollingCommandBot {
             String documentId = document.getFileId();
             String title = document.getFileName();
             try {
-                JdbcDao jdbcDao = (JdbcDao) new PalevoDaoFactory().getDao("jdbc");
+                JdbcDao jdbcDao = (JdbcDao) new PalevoDaoFactory().getDao(DaoType.SQL);
                 jdbcDao.insert(new Palevo(0, title, "Описание", documentId, 0.0));
                 jdbcDao.closeConnection();
                 replyText("Загружен файлик - " + title, chatId);
@@ -61,7 +62,7 @@ public class PalevoBot extends TelegramLongPollingCommandBot {
             long chatId = update.getCallbackQuery().getMessage().getChatId();
             try {
                 try {
-                    JdbcDao jdbcDao = (JdbcDao) new PalevoDaoFactory().getDao("jdbc");
+                    JdbcDao jdbcDao = (JdbcDao) new PalevoDaoFactory().getDao(DaoType.SQL);
                     Palevo palevo = (Palevo) jdbcDao.getById(Integer.parseInt(callData));
                     jdbcDao.closeConnection();
                     execute(new SendDocument()

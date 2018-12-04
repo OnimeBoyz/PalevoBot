@@ -1,6 +1,7 @@
 package edu.palevobot.entities;
 
 import edu.palevobot.dao.JdbcDao;
+import edu.palevobot.dao.user.DaoType;
 import edu.palevobot.dao.user.UserDaoFactory;
 
 import java.sql.Date;
@@ -13,17 +14,19 @@ public class User extends Base {
 
     public static ArrayList<User> users = new ArrayList<>();
 
-    public User(int id, Date dateOfCreation, String username) {
-        super(id, dateOfCreation);
-        this.username = username;
-        this.rating = calculateRating();
-
-        users.add(this);
-    }
+    //TODO: create ctor User(String username)
 
     public User(int id, String username) {
         super(id);
         this.username = username;
+
+        users.add(this);
+    }
+
+    public User(int id, Date dateOfCreation, String username) {
+        super(id, dateOfCreation);
+        this.username = username;
+        this.rating = calculateRating();
 
         users.add(this);
     }
@@ -49,13 +52,20 @@ public class User extends Base {
             if(user.getId() == id)
                 return user;
         }
-        JdbcDao jdbcDao = (JdbcDao) new UserDaoFactory().getDao("jdbc");
+        JdbcDao jdbcDao = (JdbcDao) new UserDaoFactory().getDao(DaoType.SQL);
         User user = (User) jdbcDao.getById(id);
         return user;
     }
 
     @Override
-    public String toString() {
-        return getId() + " " + username + rating + "\n";
+    public boolean equals(Object obj) {
+        if(!(obj instanceof User)) return false;
+        User user = (User)obj;
+        return this.getId() == user.getId() || getUsername().trim().equals(user.username.trim());
+    }
+
+    @Override
+    public int hashCode() {
+        return (super.hashCode() ^ username.hashCode());
     }
 }

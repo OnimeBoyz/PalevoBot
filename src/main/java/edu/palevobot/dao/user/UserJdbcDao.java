@@ -8,14 +8,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserJdbcDao extends JdbcDao<User> {
+
     private final String INSERT_NEW = "INSERT INTO users(username) VALUES(?)";
     private final String GET_BY_ID = "SELECT * FROM users WHERE id=?";
     private final String GET_BY_USERNAME = "SELECT * FROM users WHERE username=?";
     private final String UPDATE = "UPDATE users SET username=?, date_of_creation=?, rating=? WHERE id=?";
     private final String DELETE = "DELETE FROM users where id=?";
     private final String SELECT_ALL = "SELECT * FROM users";
+    private final String TRUNCATE = "Truncate table users";
+
     public UserJdbcDao() throws SQLException {
         super();
     }
@@ -81,8 +85,8 @@ public class UserJdbcDao extends JdbcDao<User> {
     }
 
     @Override
-    public ArrayList<User> getAll() throws SQLException {
-        ArrayList<User> res = new ArrayList<>();
+    public List<User> getAll() throws SQLException {
+        List<User> res = new ArrayList<>();
         if(connection != null) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SELECT_ALL);
@@ -94,5 +98,13 @@ public class UserJdbcDao extends JdbcDao<User> {
             }
         }
         return res;
+    }
+
+    @Override
+    public void truncate() throws SQLException {
+        if(connection != null && !connection.isClosed()){
+            preparedStatement = connection.prepareStatement(TRUNCATE);
+            preparedStatement.executeUpdate();
+        }
     }
 }

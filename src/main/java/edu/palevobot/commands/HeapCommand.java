@@ -2,6 +2,7 @@ package edu.palevobot.commands;
 
 import edu.palevobot.dao.JdbcDao;
 import edu.palevobot.dao.palevo.PalevoDaoFactory;
+import edu.palevobot.dao.user.DaoType;
 import edu.palevobot.entities.Palevo;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -34,7 +35,7 @@ public class HeapCommand extends BotCommand {
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
         //Вытаскиваем все файлики(айдишки) из бд и формируем наши кнопочки. :)
         try {
-            JdbcDao jdbcDao = (JdbcDao) new PalevoDaoFactory().getDao("jdbc");
+            JdbcDao jdbcDao = (JdbcDao) new PalevoDaoFactory().getDao(DaoType.SQL);
             for (Palevo palevo : (ArrayList<Palevo>) jdbcDao.getAll()) {
                 List<InlineKeyboardButton> rowInline = new ArrayList<>();
                 //Передаем ключи файлов в колбэки

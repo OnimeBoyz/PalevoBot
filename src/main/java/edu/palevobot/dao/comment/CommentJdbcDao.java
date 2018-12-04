@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CommentJdbcDao extends JdbcDao<Comment> {
     private final String INSERT_NEW = "INSERT INTO comments(palevo_id, content, date_of_creation) " +
@@ -18,6 +19,7 @@ public class CommentJdbcDao extends JdbcDao<Comment> {
             ", date_of_creation=? WHERE id=?";
     private final String DELETE = "DELETE FROM comments where id=?";
     private final String SELECT_ALL = "SELECT * FROM comments";
+    private final String TRUNCATE = "Truncate table comments";
 
     public CommentJdbcDao() throws SQLException {
         super();
@@ -76,8 +78,8 @@ public class CommentJdbcDao extends JdbcDao<Comment> {
     }
 
     @Override
-    public ArrayList<Comment> getAll() throws SQLException {
-        ArrayList<Comment> comments = new ArrayList<>();
+    public List<Comment> getAll() throws SQLException {
+        List<Comment> comments = new ArrayList<>();
         if(connection != null) {
             preparedStatement = connection.prepareStatement(SELECT_ALL);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -91,5 +93,13 @@ public class CommentJdbcDao extends JdbcDao<Comment> {
             closePreparedStatement();
         }
         return comments;
+    }
+
+    @Override
+    public void truncate() throws SQLException {
+        if(connection != null && !connection.isClosed()){
+            preparedStatement = connection.prepareStatement(TRUNCATE);
+            preparedStatement.executeUpdate();
+        }
     }
 }

@@ -8,12 +8,11 @@ import java.sql.SQLException;
 
 public class UserDaoFactory extends DaoFactory<User> {
     @Override
-    public Dao<User> getDao(String type) throws SQLException {
-        //Передаем тип реализации как параметр(Странно...)
+    public Dao<User> getDao(DaoType type) throws SQLException {
         switch (type){
-            case "jdbc":
+            case SQL:
                 return new UserJdbcDao();
-            case "nosql":
+            case NoSQL:
                 return new UserNoSqlDao();
         }
         return null;

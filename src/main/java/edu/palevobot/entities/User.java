@@ -24,6 +24,7 @@ public class User extends Base {
 
     public User(){
         //Oleg commit
+        //Viktor commit is better
     }
     public User(String username){
         super();

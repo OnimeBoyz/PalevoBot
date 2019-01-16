@@ -6,50 +6,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 public class UserController {
 
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping("/users")
+    @GetMapping
     public List<User> getAllUsers() {
-        System.out.println(userRepository.findAll().size());
         return userRepository.findAll();
-        //return Arrays.asList(new User("First"), new User("Second"));
     }
 
-    @PostMapping("/users")
+    @PostMapping
     public User createUser(@Valid @RequestBody User user) {
         return userRepository.save(user);
     }
 
-    @GetMapping("/users/{id}")
+   /* @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public User getUserById(@PathVariable(value = "id") Integer userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Wrong id"));
-    }
-    @GetMapping("/users/{username}")
-    public User getUserById(@PathVariable(value = "username") String username) {
+    }*/
+    @GetMapping("/{username}")
+    public User getUserById(@PathVariable(value = "username")  String username) {
         for (User user: userRepository.findAll()) {
-            if(user.getUsername().trim().equals(username.trim()))
+            if(user.getUsername().trim().equals(username.trim()) || user.getUsername().equals(username))
                 return user;
         }
         throw new IllegalArgumentException("Wrong username");
     }
 
-    @PutMapping("/users/{id}")
-    public User updateNote(@PathVariable(value = "id") Integer userId,
+    @PutMapping("/{username}")
+    public User updateUser(@PathVariable(value = "username") String username,
                               @Valid @RequestBody User userDetails) {
 
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("Wrong id"));
+        User user = null;
+        for (User us: userRepository.findAll()
+             ) {
+            if(us.getUsername().equals(username))
+                user = us;
+        }
+        if(user == null)
+            throw new IllegalArgumentException("Wrong username");
 
         user.setUsername(userDetails.getUsername());
         user.setRating(userDetails.getRating());
@@ -58,18 +61,17 @@ public class UserController {
         return updatedUser;
     }
 
-
-    @DeleteMapping("/users/{id}")
-    public ResponseEntity<?> deleteNote(@PathVariable(value = "id") Integer userId) {
-        System.out.println(userRepository.findAll().size());
-        for (User user: userRepository.findAll()) {
-            System.out.println(user.getId());
+    @DeleteMapping("/{username}")
+    public ResponseEntity<?> deleteNote(@PathVariable(value = "username") String username) {
+        User user = null;
+        for (User us: userRepository.findAll()) {
+            if(us.getUsername().equals(username))
+                user = us;
         }
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("Wrong id"));
+        if(user == null)
+            throw new IllegalArgumentException("Wrong username");
 
         userRepository.delete(user);
-
         return ResponseEntity.ok().build();
     }
 

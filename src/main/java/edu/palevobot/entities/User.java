@@ -23,8 +23,6 @@ public class User extends Base {
     public static ArrayList<User> users = new ArrayList<>();
 
     public User(){
-        //Oleg commit
-        //Viktor commit is better
     }
     public User(String username){
         super();

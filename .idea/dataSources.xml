@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="palevobotdb@localhost" uuid="7c4a3bce-a3f6-48ad-a469-4403df663af4">
+    <data-source source="LOCAL" name="palevobotdb@localhost" uuid="6e3ca402-47ef-4c93-af4a-6b1e443c17b4">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>

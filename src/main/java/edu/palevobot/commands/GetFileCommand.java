@@ -1,8 +1,5 @@
 package edu.palevobot.commands;
 
-import edu.palevobot.dao.JdbcDao;
-import edu.palevobot.dao.palevo.PalevoDaoFactory;
-import edu.palevobot.dao.user.DaoType;
 import edu.palevobot.entities.Palevo;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
@@ -30,15 +27,15 @@ public class GetFileCommand extends BotCommand {
         String documentId = "";
         if(arguments.length == 0)
             return;
-        try {
-            JdbcDao jdbcDao = (JdbcDao) new PalevoDaoFactory().getDao(DaoType.SQL);
-            Palevo palevo = (Palevo) jdbcDao.getById(Integer.parseInt(arguments[0]));
-            documentId = palevo.getDocument();
-            jdbcDao.closeConnection();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            JdbcDao jdbcDao = (JdbcDao) new PalevoDaoFactory().getDao(DaoType.SQL);
+//            Palevo palevo = (Palevo) jdbcDao.getById(Integer.parseInt(arguments[0]));
+//            documentId = palevo.getDocument();
+//            jdbcDao.closeConnection();
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
         if(documentId.equals(""))
             return;
         try {

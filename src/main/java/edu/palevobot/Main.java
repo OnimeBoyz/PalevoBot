@@ -10,11 +10,9 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import static edu.palevobot.config.BotConfig.BOT_USERNAME;
 
-@SpringBootApplication
-@EnableJpaAuditing
 public class Main {
     public static void main(String[] args) {
-        startApi(args);
+        startBot();
       }
 
     private static void startBot(){
@@ -32,7 +30,7 @@ public class Main {
         System.out.println("PalevoBot successfully started!");
 
     }
-    private static void startApi(String[] args){
-        SpringApplication.run(Main.class, args);
-    }
+//    private static void startApi(String[] args){
+//        SpringApplication.run(Main.class, args);
+//    }
 }
